@@ -11,7 +11,7 @@ const wordAndText = (text = 'qwer', word = 'er') => {
   }
   return result
 }
-console.log(wordAndText()) 
+console.log(wordAndText())
 
 //
 
