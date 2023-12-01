@@ -3,7 +3,7 @@
 У функции два входных параметра: text, word
 Возвращает количество word в text */
 
-const wordAndText = (text, word) => {
+const wordAndText = (text = 'qwer', word = 'er') => {
   let result = 0;
   text = text.toLowerCase().split(' ')
   for (let i = 0; i < text.length; i++) {
@@ -11,7 +11,7 @@ const wordAndText = (text, word) => {
   }
   return result
 }
-console.log(wordAndText())
+console.log(wordAndText()) 
 
 //
 
