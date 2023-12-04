@@ -1,6 +1,7 @@
 
 const getWordCount = (text, word) => {
-  let arrayTranslation = text.replace(/[-_.,%?!]/g, ' ').split(' ');
+  text = text.replace(/[-_.,%?!]/g, ' ')
+  let arrayTranslation = text.split(' ');
   arrayTranslation = arrayTranslation.reduce(function (acum, item) {
     if (item === word) { acum++ }
 
