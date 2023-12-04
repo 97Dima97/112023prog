@@ -1,14 +1,14 @@
 
 const getWordCount = (text, word) => {
-  text = text.replace(/[-_.,%?!]/g, ' ');
-  let arrayTranslation = text.split(' ');
-  arrayTranslation = arrayTranslation.reduce(function (acum, item) {
-    if (item === word) { acum++ }
-
-    return acum;
+  const stringToArray = text.replace(/[^a-zа-яё0-9\s]/gi, ' ')
+    .split(' ')
+    .filter((el) => el != '');
+  const result = stringToArray.reduce((acum, item) => {
+    return (item === word ? ++acum : acum)
   }, 0);
-  return arrayTranslation;
+  return result;
 }
+
 
 export default getWordCount;
 
