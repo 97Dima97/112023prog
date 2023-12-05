@@ -4,7 +4,7 @@ const getWordCount = (text, word) => {
     .split(' ')
     .filter((el) => el != '')
     .reduce((acum, item) => {
-      return item === word ? ++acum : acum;
+      return (item === word || item.slice(1) === word.slice(1)) ? ++acum : acum;
     }, 0);
 };
 
