@@ -14,9 +14,12 @@ test(' Checking the number of words in the text ', () => {
 
 
 test('See the time in the time zone ', () => {
-  expect(getTimeUtc(-7,false)).toBe(`a.m. ${new Date(1701975054).getHours() - 14}:${new Date().getMinutes()}`);
-  expect(getTimeUtc(+10, false)).toBe(`a.m. ${new Date(1701993041).getHours() -21}:${new Date().getMinutes()}`);
-  expect(getTimeUtc(0, true)).toBe(`p.m. ${new Date(1701993041).getHours()-7}:${new Date().getMinutes()}`);
+  expect(getTimeUtc(-7, false)).toBe(`a.m. ${new Date().getHours() - 12}:${new Date().getMinutes()}`);
+  expect(getTimeUtc(+10, false)).toBe(`a.m. ${new Date().getHours() - 19}:${new Date().getMinutes()}`);
+  expect(getTimeUtc(0,)).toBe(`p.m. ${new Date().getHours() - 5}:${new Date().getMinutes()}`);
+  expect(getTimeUtc(1.1,)).toBe('unavailable value');
+  expect(getTimeUtc(15,)).toBe('unavailable value');
+  expect(getTimeUtc(-15,)).toBe('unavailable value');
 
 
 });

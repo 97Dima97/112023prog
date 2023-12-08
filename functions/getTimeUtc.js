@@ -1,6 +1,11 @@
 
-const getTimeUtc = (deviation, isPm) => {
-  deviation = deviation - 5;
+const getTimeUtc = (deviation, isPm = true) => {
+  if (deviation > 14 || deviation < -12 || deviation !== Math.trunc(deviation)) {
+    return 'unavailable value'
+  }
+  let localDeviation = new Date().getTimezoneOffset() / 60;
+  localDeviation = Math.abs(localDeviation);
+  deviation -= localDeviation;
   let hours = new Date().getHours() + deviation;
   if (hours <= 0) {
     hours += 24
@@ -8,18 +13,18 @@ const getTimeUtc = (deviation, isPm) => {
   if (hours >= 24) {
     hours -= 24
   }
+  let minutes = new Date().getMinutes();
+  minutes = minutes <= 9 ? minutes = '0' + minutes : minutes;
+
   if (isPm === true && hours < 12) {
     hours += 12
   }
   if (isPm === false && hours > 12) {
     hours -= 12
   }
-  let minutes = new Date().getMinutes();
-  hours = Math.abs(hours);
-  return (minutes < 10)
-    ? `${isPm ? 'p.m. ' + hours : 'a.m. ' + hours}:${minutes = '0' + minutes}`
-    : `${isPm ? 'p.m. ' + hours : 'a.m. ' + hours}:${minutes}`;
-}
+
+  return isPm ? `p.m. ${hours}:${minutes}` : `a.m. ${hours}:${minutes}`
+};
 
 
 
