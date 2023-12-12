@@ -26,8 +26,10 @@ const getTimeUtcString = (offset, isPm = true) => {
 
   if (isPm === false && hours > twelveHours) hours -= twelveHours;
 
-  return isPm ? `${hours}:${minutes}` : `${hours}:${minutes}`
+  return isPm ? `${hours}:${minutes}` : `${hours}:${minutes}`;
+
 };
+
 
 
 
