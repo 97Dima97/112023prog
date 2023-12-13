@@ -8,9 +8,6 @@ const getWordCount = (text, word) => {
     }, 0);
 };
 
-
-
-
 export default getWordCount;
 
 
