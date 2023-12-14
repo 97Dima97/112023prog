@@ -21,9 +21,8 @@ const getTimeUtcString = (offset, isPm = true) => {
   const minuteAmountInOneHour = 60;
   const twentyFourHours = 24;
   const date = new Date();
-  let localOffset = date.getTimezoneOffset() / minuteAmountInOneHour;
-  offset -= Math.abs(localOffset);
-  let hours = date.getHours() + offset;
+  const TimeByOffset = (date.getTimezoneOffset() / minuteAmountInOneHour) + offset;
+  let hours = date.getHours() + TimeByOffset;
 
   if (hours <= 0) {
     hours += twentyFourHours;
