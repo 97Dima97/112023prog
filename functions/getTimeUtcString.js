@@ -1,55 +1,54 @@
-
-const checkOffsetValue = (offset) => {
+let getTimeUtcString = (offset, isPm = true) => {
   const maxOffset = 14;
   const minOffset = -12;
+  const twelveHours = 12;
+  const hourAmoutInOneDay = 24;
+  const date = new Date();
+  const resultParameterChekc = checkOffsetParameter(offset);
 
-  if (offset > maxOffset || offset < minOffset || offset !== ~~offset) {
+  if (!resultParameterChekc) {
     return `enter an integer offset value in the range from ${minOffset} to +${maxOffset}`;
   }
 
-  return offset;
+  let timeByOffset = date.getUTCHours() + offset;
+  const minutesOfTime = date.getMinutes();
+  const minutes = minutesOfTime < 10 ? `0${minutesOfTime}` : minutesOfTime;
+
+  if (timeByOffset <= 0) {
+    timeByOffset += hourAmoutInOneDay;
+  }
+
+  if (timeByOffset >= hourAmoutInOneDay) {
+    timeByOffset -= hourAmoutInOneDay;
+  }
+
+  if (isPm && timeByOffset < twelveHours) {
+    timeByOffset += twelveHours;
+  }
+
+  if (!isPm && timeByOffset > twelveHours) {
+    timeByOffset -= twelveHours;
+  }
+
+  return `${timeByOffset}:${minutes}`;
+
 };
 
-const getTimeUtcString = (offset, isPm = true) => {
-  offset = checkOffsetValue(offset);
+const checkOffsetParameter = (offset) => {
+  const maxOffset = 14;
+  const minOffset = -12;
 
-  if (offset != Number(offset)) {
-    return offset;
+  try {
+
+    if (offset > maxOffset || offset < minOffset || offset !== ~~offset) {
+      throw new Error();
+    }
+
+  } catch (err) {
+    return false;
   }
 
-  const twelveHours = 12;
-  const minuteAmountInOneHour = 60;
-  const twentyFourHours = 24;
-  const date = new Date();
-  const TimeByOffset = (date.getTimezoneOffset() / minuteAmountInOneHour) + offset;
-  let hours = date.getHours() + TimeByOffset;
-
-  if (hours <= 0) {
-    hours += twentyFourHours;
-  }
-
-  if (hours >= twentyFourHours) {
-    hours -= twentyFourHours;
-  }
-
-  let minutes = date.getMinutes();
-
-  if (isPm && hours < twelveHours) {
-    hours += twelveHours;
-  }
-
-  if (!isPm && hours > twelveHours) {
-    hours -= twelveHours;
-  }
-
-  return minutes < 10 ? `${hours}:0${minutes}` : `${hours}:${minutes}`;
+  return true;
 };
 
 export default getTimeUtcString;
-
-
-
-
-
-
-
