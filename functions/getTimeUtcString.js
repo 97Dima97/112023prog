@@ -1,54 +1,52 @@
-let getTimeUtcString = (offset, isPm = true) => {
-  const maxOffset = 14;
-  const minOffset = -12;
+const getTimeUtcString = (offset, isPm = true) => {
   const twelveHours = 12;
-  const hourAmoutInOneDay = 24;
   const date = new Date();
-  const resultParameterChekc = checkOffsetParameter(offset);
-
-  if (!resultParameterChekc) {
-    return `enter an integer offset value in the range from ${minOffset} to +${maxOffset}`;
-  }
-
-  let timeByOffset = date.getUTCHours() + offset;
   const minutesOfTime = date.getMinutes();
   const minutes = minutesOfTime < 10 ? `0${minutesOfTime}` : minutesOfTime;
+  checkOffsetParameter(offset);
+  let hours = date.getUTCHours() + offset;
+  let formattedHours = getFormattedHours(hours);
 
-  if (timeByOffset <= 0) {
-    timeByOffset += hourAmoutInOneDay;
+  if (isPm && formattedHours < twelveHours) {
+    formattedHours += twelveHours;
   }
 
-  if (timeByOffset >= hourAmoutInOneDay) {
-    timeByOffset -= hourAmoutInOneDay;
+  if (!isPm && formattedHours > twelveHours) {
+    formattedHours -= twelveHours;
   }
 
-  if (isPm && timeByOffset < twelveHours) {
-    timeByOffset += twelveHours;
-  }
-
-  if (!isPm && timeByOffset > twelveHours) {
-    timeByOffset -= twelveHours;
-  }
-
-  return `${timeByOffset}:${minutes}`;
-
+  return `${formattedHours}:${minutes}`;
 };
 
 const checkOffsetParameter = (offset) => {
   const maxOffset = 14;
   const minOffset = -12;
 
-  try {
+  if (offset > maxOffset || offset < minOffset) {
+    throw new Error(`enter an offset value in the range from ${minOffset} to +${maxOffset}`);
+  }
 
-    if (offset > maxOffset || offset < minOffset || offset !== ~~offset) {
-      throw new Error();
-    }
-
-  } catch (err) {
-    return false;
+  if (offset !== ~~offset) {
+    throw new Error('enter an integer offset value');
   }
 
   return true;
-};
+}
+
+const getFormattedHours = (hours) => {
+  const hourAmoutInOneDay = 24;
+
+  if (hours <= 0) {
+    hours += hourAmoutInOneDay;
+  }
+
+  if (hours >= hourAmoutInOneDay) {
+    hours -= hourAmoutInOneDay;
+  }
+
+  return hours;
+}
 
 export default getTimeUtcString;
+
+
