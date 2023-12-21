@@ -1,21 +1,16 @@
 const getTimeUtcString = (offset, isPm = true) => {
-  const twelveHours = 12;
   const date = new Date();
-  const minutesOfTime = date.getMinutes();
-  const minutes = minutesOfTime < 10 ? `0${minutesOfTime}` : minutesOfTime;
-  checkOffsetParameter(offset);
-  let hours = date.getUTCHours() + offset;
-  let formattedHours = getFormattedHours(hours);
+  const minutesRaw = date.getMinutes();
+  const minutes = minutesRaw < 10 ? `0${minutesRaw}` : minutesRaw;
+  let hours = date.getUTCHours();
 
-  if (isPm && formattedHours < twelveHours) {
-    formattedHours += twelveHours;
+  if (checkOffsetParameter(offset)) {
+    hours += offset;
   }
 
-  if (!isPm && formattedHours > twelveHours) {
-    formattedHours -= twelveHours;
-  }
-
+  const formattedHours = getFormattedHours(hours, isPm);
   return `${formattedHours}:${minutes}`;
+
 };
 
 const checkOffsetParameter = (offset) => {
@@ -29,12 +24,12 @@ const checkOffsetParameter = (offset) => {
   if (offset !== ~~offset) {
     throw new Error('enter an integer offset value');
   }
-
-  return true;
+  return true
 }
 
-const getFormattedHours = (hours) => {
+const getFormattedHours = (hours, isPm) => {
   const hourAmoutInOneDay = 24;
+  const twelveHours = 12;
 
   if (hours <= 0) {
     hours += hourAmoutInOneDay;
@@ -44,9 +39,22 @@ const getFormattedHours = (hours) => {
     hours -= hourAmoutInOneDay;
   }
 
+  if (isPm && hours < twelveHours) {
+    hours += twelveHours;
+  }
+
+  if (!isPm && hours > twelveHours) {
+    hours -= twelveHours;
+  }
+
   return hours;
 }
 
 export default getTimeUtcString;
+
+
+
+
+
 
 
