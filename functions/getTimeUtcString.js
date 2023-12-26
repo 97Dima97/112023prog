@@ -30,22 +30,23 @@ const isOffsetCorrect = (offset) => {
 }
 
 const getFormattedHours = (hours, is24HourFormat) => {
-  const hourAmoutInOneDay = 24;
+  const hourAmoutInOneDay = 23;
   const twelveHours = 12;
+  const twentyFourHours = 24;
 
   if (hours <= 0) {
-    hours += hourAmoutInOneDay;
+    hours += twentyFourHours;
   }
 
   if (hours >= hourAmoutInOneDay) {
-    hours -= hourAmoutInOneDay;
+    hours -= twentyFourHours;
   }
 
   if (is24HourFormat && hours < twelveHours) {
     hours += twelveHours;
   }
 
-  return (!is24HourFormat && hours > twelveHours) ? hours -= twelveHours : hours;
+  return (!is24HourFormat && hours > twelveHours) ? hours - twelveHours : hours;
 }
 
 export default getTimeUtcString;
