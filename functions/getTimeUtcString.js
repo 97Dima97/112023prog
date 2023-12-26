@@ -3,7 +3,6 @@ const getTimeUtcString = (offset, is24HourFormat = true) => {
   const minutesRaw = date.getMinutes();
   const minutes = minutesRaw < 10 ? `0${minutesRaw}` : minutesRaw;
   let hours = date.getUTCHours();
-  console.log(hours);
 
   if (isOffsetCorrect(offset)) {
     hours += offset;
