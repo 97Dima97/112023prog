@@ -29,16 +29,15 @@ const isOffsetCorrect = (offset) => {
 }
 
 const getFormattedHours = (hours, is24HourFormat) => {
-  const hourAmoutInOneDay = 23;
   const twelveHours = 12;
-  const maxValueHourss = 24;
+  const maxHourValue = 24;
 
-  if (hours <= 0) {
-    hours += maxValueHourss;
+  if (hours < 0) {
+    hours += maxHourValue;
   }
 
-  if (hours >= hourAmoutInOneDay) {
-    hours -= maxValueHourss;
+  if (hours > maxHourValue) {
+    hours -= maxHourValue;
   }
 
   return (!is24HourFormat && hours > twelveHours) ? hours - twelveHours : hours;
