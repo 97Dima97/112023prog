@@ -17,6 +17,10 @@ const isOffsetCorrect = (offset) => {
   const maxOffset = 14;
   const minOffset = -12;
 
+  if (offset === undefined) {
+    return offset += new Date().getUTCHours();
+  }
+
   if (offset > maxOffset || offset < minOffset) {
     throw new Error(`enter an offset value in the range from ${minOffset} to +${maxOffset}`);
   }
