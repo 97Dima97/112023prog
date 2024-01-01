@@ -1,4 +1,4 @@
-const getTimeUtcString = (offset, is24HourFormat = true) => {
+const getTimeUtcString = (offset = 0, is24HourFormat = true) => {
   const date = new Date();
   const minutesRaw = date.getMinutes();
   const minutes = minutesRaw < 10 ? `0${minutesRaw}` : minutesRaw;
@@ -16,10 +16,6 @@ const getTimeUtcString = (offset, is24HourFormat = true) => {
 const isOffsetCorrect = (offset) => {
   const maxOffset = 14;
   const minOffset = -12;
-
-  if (offset === undefined) {
-    return offset += new Date().getUTCHours();
-  }
 
   if (offset > maxOffset || offset < minOffset) {
     throw new Error(`enter an offset value in the range from ${minOffset} to +${maxOffset}`);
@@ -48,3 +44,4 @@ const getFormattedHours = (hours, is24HourFormat) => {
 }
 
 export default getTimeUtcString;
+
