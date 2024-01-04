@@ -20,6 +20,8 @@ test('Checking for invalid values', () => {
         .toThrow();
     expect(getTimeUtcString => getTimeUtcString())
         .toThrow();
+    expect(getTimeUtcString => getTimeUtcString(''))
+        .toThrow();
 });
 
 
