@@ -1,5 +1,3 @@
-# test new file 
-
 ## run test
 
 npm run test
@@ -9,4 +7,9 @@ npm run test
 npm run test getWordCount.test.js
 
 npm run test getTimeUtcString.test.js
+
+npm run test getComparisonResultObj.test.js
+npm run test getNameAndAge.test.js
+npm run test getObjectCopies.test.js
+
 
