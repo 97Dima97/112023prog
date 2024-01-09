@@ -1,7 +1,7 @@
-const getObjectCopies = (obj, namber) => {
+const getObjectCopies = (obj, number) => {
     let result = [];
 
-    for (let i = 1; i < namber + 1; i++) {
+    for (let i = 1; i <= number; i++) {
         result.push(Object.assign({}, obj, { serialNumber: i }));
     }
 
